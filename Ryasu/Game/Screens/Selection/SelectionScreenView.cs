@@ -110,12 +110,27 @@ namespace Ryasu.Game.Screens.Selection
 
         private void Refresh()
         {
-            Parallax.Image = CustomTextureManager.Load($"{New.DirectoryPath}/{New.Background}");
-            if(Old == null || ($"{Old.DirectoryPath}/{Old.Audio}" != $"{New.DirectoryPath}/{New.Audio}"))
+            //if Old selected beatmap is null, force refresh
+            if(Old == null)
             {
+                Parallax.Image = CustomTextureManager.Load($"{New.DirectoryPath}/{New.Background}");
                 AudioEngine.Load($"{New.DirectoryPath}/{New.Audio}");
                 AudioEngine.Track.Seek(New.PreviewTime);
                 AudioEngine.Track.Play();
+            }
+            else
+            {
+                if ($"{Old.DirectoryPath}/{Old.Audio}" != $"{New.DirectoryPath}/{New.Audio}")
+                {
+                    AudioEngine.Load($"{New.DirectoryPath}/{New.Audio}");
+                    AudioEngine.Track.Seek(New.PreviewTime);
+                    AudioEngine.Track.Play();
+                }
+
+                if ($"{Old.DirectoryPath}/{Old.Background}" != $"{New.DirectoryPath}/{New.Background}")
+                {
+                    Parallax.Image = CustomTextureManager.Load($"{New.DirectoryPath}/{New.Background}");
+                }
             }
         }
 
