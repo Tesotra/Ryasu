@@ -3,9 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32002.261
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ryasu", "Ryasu\Ryasu.csproj", "{7A59DCAC-5A02-4B67-A489-8F78B4AB2230}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ryasu", "Ryasu\Ryasu.csproj", "{7A59DCAC-5A02-4B67-A489-8F78B4AB2230}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ryasu.API", "Ryasu.API\Ryasu.API.csproj", "{FAE03714-395A-4071-BC16-526B875E963F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ryasu.API", "Ryasu.API\Ryasu.API.csproj", "{FAE03714-395A-4071-BC16-526B875E963F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wobble", "Wobble\Wobble\Wobble.csproj", "{89F2ECAA-8CF8-4C34-8E24-9639FD6E8731}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wobble.Extended", "Wobble\Wobble.Extended\Wobble.Extended.csproj", "{C5A2AB66-7D6B-433A-AE43-A1F0D4931415}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wobble.Resources", "Wobble\Wobble.Resources\Wobble.Resources.csproj", "{4B07B643-3E92-414E-B892-38DA26C5E542}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MonoGame.Framework.DesktopGL", "Wobble\MonoGame\MonoGame.Framework\MonoGame.Framework.DesktopGL.csproj", "{3FCD7C86-D3A5-4BB1-B278-24BBB5589FE5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpriteFontPlus", "Wobble\SpriteFontPlus\src\SpriteFontPlus\SpriteFontPlus.csproj", "{EFA26565-65D4-41E5-AED5-A606679FA040}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ryasu.Resources", "Ryasu.Resources\Ryasu.Resources.csproj", "{68282AAB-6E92-4AF8-8B77-2BB7CC30BA28}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +33,30 @@ Global
 		{FAE03714-395A-4071-BC16-526B875E963F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FAE03714-395A-4071-BC16-526B875E963F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FAE03714-395A-4071-BC16-526B875E963F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89F2ECAA-8CF8-4C34-8E24-9639FD6E8731}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89F2ECAA-8CF8-4C34-8E24-9639FD6E8731}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89F2ECAA-8CF8-4C34-8E24-9639FD6E8731}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89F2ECAA-8CF8-4C34-8E24-9639FD6E8731}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5A2AB66-7D6B-433A-AE43-A1F0D4931415}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5A2AB66-7D6B-433A-AE43-A1F0D4931415}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5A2AB66-7D6B-433A-AE43-A1F0D4931415}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5A2AB66-7D6B-433A-AE43-A1F0D4931415}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B07B643-3E92-414E-B892-38DA26C5E542}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B07B643-3E92-414E-B892-38DA26C5E542}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B07B643-3E92-414E-B892-38DA26C5E542}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B07B643-3E92-414E-B892-38DA26C5E542}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FCD7C86-D3A5-4BB1-B278-24BBB5589FE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FCD7C86-D3A5-4BB1-B278-24BBB5589FE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FCD7C86-D3A5-4BB1-B278-24BBB5589FE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FCD7C86-D3A5-4BB1-B278-24BBB5589FE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFA26565-65D4-41E5-AED5-A606679FA040}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFA26565-65D4-41E5-AED5-A606679FA040}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFA26565-65D4-41E5-AED5-A606679FA040}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFA26565-65D4-41E5-AED5-A606679FA040}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68282AAB-6E92-4AF8-8B77-2BB7CC30BA28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68282AAB-6E92-4AF8-8B77-2BB7CC30BA28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68282AAB-6E92-4AF8-8B77-2BB7CC30BA28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68282AAB-6E92-4AF8-8B77-2BB7CC30BA28}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

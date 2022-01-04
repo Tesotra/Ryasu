@@ -1,12 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
+using Ryasu.Game.Global.UI;
 using System.Collections.Generic;
+using System.Linq;
 using System.Globalization;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Wobble;
 using Wobble.Window;
+using Wobble.Managers;
+using Microsoft.Xna.Framework.Content;
+using Wobble.Screens;
+using Ryasu.Game.Screens.MainMenu;
 
 namespace Ryasu.Game
 {
@@ -14,14 +20,20 @@ namespace Ryasu.Game
     {
         public static RyasuGame Instance { get; private set; }
 
+        public static List<string> LaunchArguments { get; set; }
+
         protected override bool IsReadyToUpdate { get; set; }
 
         public const string WindowTitle = "Ryasu";
 
+        public static ContentManager RyasuContent { get; private set; }
+
+        private FPSCounter Fps { get; set; }
+
         protected override void Initialize()
         {
             base.Initialize();
-
+            
             Window.Title = WindowTitle;
 
             Instance = this;
@@ -54,7 +66,18 @@ namespace Ryasu.Game
         {
             base.LoadContent();
 
+            Fps = new FPSCounter(FontManager.LoadBitmapFont("code-pro"),16)
+            {
+                Parent = GlobalUserInterface,
+                Alignment = Wobble.Graphics.Alignment.BotRight,
+                X = -14
+            };
+
+            RyasuContent = Content;
+
             IsReadyToUpdate = true;
+
+            ScreenManager.ChangeScreen(new MainMenuScreen());
         }
 
         /// <inheritdoc />

@@ -3,6 +3,8 @@ Ryasu/obj/
 Ryasu/obj/Debug/
 Ryasu.API/bin/
 Ryasu.API/obj/
+Ryasu.Resources/bin/
+Ryasu.Resources/obj/
 .vs
 .vs/*
 *.cache

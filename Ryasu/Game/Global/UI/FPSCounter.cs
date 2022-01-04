@@ -10,8 +10,8 @@ namespace Ryasu.Game.Global.UI
     public class FPSCounter : SpriteTextBitmap
     {
 
-        private TimeSpan elapsedTimeUpdate;
-        private TimeSpan elapsedTimeDraw;
+        private TimeSpan ElapsedTimeUpdate { get; set; }
+        private TimeSpan ElapsedTimeDraw { get; set; }
 
         private int updateCount = 0;
         private int frameCount = 0;
@@ -22,19 +22,20 @@ namespace Ryasu.Game.Global.UI
         /// <param name="font"></param>
         /// <param name="text"></param>
         /// <param name="cacheToRenderTarget"></param>
-        public FPSCounter(BitmapFont font, string text, bool cacheToRenderTarget = true) : base(font, text, cacheToRenderTarget)
+        public FPSCounter(BitmapFont font, int size, bool cacheToRenderTarget = true) : base(font, "FPS: 0\nUPS: 0", cacheToRenderTarget)
         {
-            elapsedTimeUpdate = TimeSpan.Zero;
-            elapsedTimeDraw = TimeSpan.Zero;
+            ElapsedTimeUpdate = TimeSpan.Zero;
+            ElapsedTimeDraw = TimeSpan.Zero;
+            FontSize = size;
         }
 
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 
-            elapsedTimeUpdate += gameTime.ElapsedGameTime;
+            ElapsedTimeUpdate += gameTime.ElapsedGameTime;
 
-            if(elapsedTimeUpdate >= TimeSpan.FromSeconds(1))
+            if(ElapsedTimeUpdate >= TimeSpan.FromSeconds(1))
             {
                 //Update Text
                 base.Text = $"FPS: {updateCount}\nUPS: {frameCount}";
@@ -44,8 +45,8 @@ namespace Ryasu.Game.Global.UI
                 frameCount = 0;
 
                 //Reset Elapsed Time
-                elapsedTimeUpdate = TimeSpan.Zero;
-                elapsedTimeDraw = TimeSpan.Zero;
+                ElapsedTimeUpdate = TimeSpan.Zero;
+                ElapsedTimeDraw = TimeSpan.Zero;
                 return;
             }
 

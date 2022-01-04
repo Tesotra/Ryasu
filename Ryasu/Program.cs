@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Ryasu.Game;
 
 namespace Ryasu
 {
@@ -7,6 +10,9 @@ namespace Ryasu
         static void Main(string[] args)
         {
             RyasuLogger.Log("Initializing Ryasu...");
+            RyasuGame.LaunchArguments = args.ToList();
+
+            new RyasuGame().Run();
         }
     }
 }
