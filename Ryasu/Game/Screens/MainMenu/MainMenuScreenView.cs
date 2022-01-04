@@ -8,6 +8,7 @@ using Wobble.Screens;
 using Ryasu.Game.Audio;
 using Wobble.Graphics.UI;
 using Microsoft.Xna.Framework.Graphics;
+using Wobble.Managers;
 
 namespace Ryasu.Game.Screens.MainMenu
 {
@@ -15,26 +16,37 @@ namespace Ryasu.Game.Screens.MainMenu
     {
         private BackgroundImage Parallax { get; set; }
 
+        const int osu_circles_delay = 2200;
+
+        private TimeSpan ElapsedTime = TimeSpan.Zero;
+
+        private bool osu;
+        private bool osuStart;
+
         public MainMenuScreenView(Screen screen) : base(screen)
         {
-            //2.2 seconds
-            const int osu_circles_delay = 2200;
-            bool osu = false;
-
             Texture2D background = null;
 
-            if (RyasuGame.LaunchArguments.Contains("--osu-menu-track"))
-                osu = true;
+            int dim = 30;
 
-            Task.Factory.StartNew(() =>
+            osu = true;
+
+            if (osu)
             {
-                if (osu)
-                {
-                    PathableString osuTrack = "[dir]/Songs/osu!/circles.mp3";
-                    AudioEngine.Load(osuTrack);
-                    Task.Delay(osu_circles_delay);
-                }
-            });
+                var osuCircles = RyasuGame.Instance.Resources.Get("Ryasu.Resources/osu!/Music/circles.mp3");
+                background = TextureManager.Load("Ryasu.Resources/osu!/Images/background.jpg");
+                AudioEngine.Load(osuCircles);
+                dim = 100;
+            }
+            else
+            {
+                background = TextureManager.Load("Ryasu.Resources/Menu/background.jpg");
+            }
+
+            Parallax = new BackgroundImage(background, dim)
+            {
+                Parent = Container
+            };
         }
 
         public override void Destroy()
@@ -50,6 +62,18 @@ namespace Ryasu.Game.Screens.MainMenu
         public override void Update(GameTime gameTime)
         {
             Container?.Update(gameTime);
+
+            if(osu && !osuStart)
+            {
+                ElapsedTime += gameTime.ElapsedGameTime;
+
+                if (ElapsedTime >= TimeSpan.FromMilliseconds(osu_circles_delay))
+                {
+                    osuStart = true;
+
+                    Parallax.Dim = 30;
+                }
+            }
         }
     }
 }

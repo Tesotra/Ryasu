@@ -13,6 +13,7 @@ using Wobble.Managers;
 using Microsoft.Xna.Framework.Content;
 using Wobble.Screens;
 using Ryasu.Game.Screens.MainMenu;
+using Wobble.IO;
 
 namespace Ryasu.Game
 {
@@ -32,16 +33,16 @@ namespace Ryasu.Game
 
         protected override void Initialize()
         {
-            base.Initialize();
-            
+            WindowManager.ChangeScreenResolution(new Point(1280, 720));
+
+            Resources.AddStore(new DllResourceStore("Ryasu.Resources.dll"));
+
             Window.Title = WindowTitle;
 
             Instance = this;
 
             CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-
-            WindowManager.ChangeScreenResolution(new Point(1280, 720));
 
             Graphics.SynchronizeWithVerticalRetrace = false;
             TargetElapsedTime = TimeSpan.FromSeconds(1d / 240);
@@ -55,6 +56,8 @@ namespace Ryasu.Game
             GlobalUserInterface.Cursor.Hide(0);
 
             IsMouseVisible = true;
+
+            base.Initialize();
         }
 
         /// <inheritdoc />

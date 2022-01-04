@@ -11,7 +11,7 @@ namespace Ryasu.Game.Screens.MainMenu
 
         public MainMenuScreen()
         {
-
+            View = new MainMenuScreenView(this);
         }
     }
 }

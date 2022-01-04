@@ -14,7 +14,7 @@ namespace Ryasu
         public static void Log(string log, ConsoleColor color)
         {
             Console.ForegroundColor = color;
-            Console.WriteLine($"[RYASU-{DateTime.Now.ToShortTimeString()}] {log}");
+            Console.WriteLine($"[RYASU {DateTime.Now.ToShortTimeString().ToUpper()}] {log}");
             Console.ForegroundColor = ConsoleColor.Gray;
         }
     }

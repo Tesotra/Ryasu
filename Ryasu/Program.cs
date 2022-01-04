@@ -12,7 +12,8 @@ namespace Ryasu
             RyasuLogger.Log("Initializing Ryasu...");
             RyasuGame.LaunchArguments = args.ToList();
 
-            new RyasuGame().Run();
+            var game = new RyasuGame();
+            game.Run();
         }
     }
 }

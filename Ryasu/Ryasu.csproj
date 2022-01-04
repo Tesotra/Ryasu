@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Ryasu.API\Ryasu.API.csproj" />
+    <ProjectReference Include="..\Ryasu.Resources\Ryasu.Resources.csproj" />
     <ProjectReference Include="..\Wobble\MonoGame\MonoGame.Framework\MonoGame.Framework.DesktopGL.csproj" />
     <ProjectReference Include="..\Wobble\SpriteFontPlus\src\SpriteFontPlus\SpriteFontPlus.csproj" />
     <ProjectReference Include="..\Wobble\Wobble.Extended\Wobble.Extended.csproj" />
