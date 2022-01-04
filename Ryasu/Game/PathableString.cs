@@ -20,7 +20,7 @@ namespace Ryasu.Game
         {
             //Avoid NULL text
             if (text == null)
-                return new PathableString("");
+                text = "";
 
             return new PathableString(text);
         }
