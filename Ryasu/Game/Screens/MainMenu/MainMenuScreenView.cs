@@ -16,12 +16,9 @@ namespace Ryasu.Game.Screens.MainMenu
     {
         private BackgroundImage Parallax { get; set; }
 
-        const int osu_circles_delay = 2200;
+        const int osu_circles_delay = 2400;
 
-        private TimeSpan ElapsedTime = TimeSpan.Zero;
-
-        private bool osu;
-        private bool osuStart;
+        private bool OsuStart;
 
         public MainMenuScreenView(Screen screen) : base(screen)
         {
@@ -29,24 +26,43 @@ namespace Ryasu.Game.Screens.MainMenu
 
             int dim = 30;
 
-            osu = true;
+            byte[] osuCircles = new byte[] { };
 
-            if (osu)
+            if(RyasuGame.LaunchArguments.Contains("--osu"))
             {
-                var osuCircles = RyasuGame.Instance.Resources.Get("Ryasu.Resources/osu/Music/circles.mp3");
+                osuCircles = RyasuGame.Instance.Resources.Get("Ryasu.Resources/osu/Music/circles.mp3");
                 background = TextureManager.Load("Ryasu.Resources/osu/Images/background.jpg");
-                AudioEngine.Load(osuCircles);
                 dim = 100;
+                AudioEngine.Load(osuCircles);
+
+                Task.Factory.StartNew(() =>
+                {
+                    Osu();
+                });
             }
             else
             {
                 background = TextureManager.Load("Ryasu.Resources/Menu/background.jpg");
+                InitializeMenu();
             }
 
             Parallax = new BackgroundImage(background, dim)
             {
                 Parent = Container
             };
+        }
+
+        void InitializeMenu()
+        {
+
+        }
+
+        public async void Osu()
+        {
+            AudioEngine.Track.Play();
+            await Task.Delay(osu_circles_delay);
+            OsuStart = true;
+            InitializeMenu();
         }
 
         public override void Destroy()
@@ -63,16 +79,9 @@ namespace Ryasu.Game.Screens.MainMenu
         {
             Container?.Update(gameTime);
 
-            if(osu && !osuStart)
+            if (OsuStart)
             {
-                ElapsedTime += gameTime.ElapsedGameTime;
-
-                if (ElapsedTime >= TimeSpan.FromMilliseconds(osu_circles_delay))
-                {
-                    osuStart = true;
-
-                    Parallax.Dim = 30;
-                }
+                Parallax.Dim = (int)MathHelper.Lerp(Parallax.Dim,30,(float)(9 * gameTime.ElapsedGameTime.TotalSeconds));
             }
         }
     }

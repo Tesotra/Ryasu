@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using Ryasu.Game.Global.UI;
 using System.Collections.Generic;
 using System.Linq;
 using System.Globalization;
@@ -14,6 +13,7 @@ using Microsoft.Xna.Framework.Content;
 using Wobble.Screens;
 using Ryasu.Game.Screens.MainMenu;
 using Wobble.IO;
+using Wobble.Graphics.UI.Debugging;
 
 namespace Ryasu.Game
 {
@@ -29,7 +29,7 @@ namespace Ryasu.Game
 
         public static ContentManager RyasuContent { get; private set; }
 
-        private FPSCounter Fps { get; set; }
+        private FpsCounter Fps { get; set; }
 
         protected override void Initialize()
         {
@@ -69,11 +69,11 @@ namespace Ryasu.Game
         {
             base.LoadContent();
 
-            Fps = new FPSCounter(FontManager.LoadBitmapFont("code-pro"),16)
+            Fps = new FpsCounter(FontManager.LoadBitmapFont("gotham"),16)
             {
                 Parent = GlobalUserInterface,
                 Alignment = Wobble.Graphics.Alignment.BotRight,
-                X = -14
+                X = -10
             };
 
             RyasuContent = Content;
@@ -104,6 +104,8 @@ namespace Ryasu.Game
                 return;
 
             base.Update(gameTime);
+
+            GlobalUserInterface?.Update(gameTime);
         }
 
         /// <inheritdoc />
@@ -116,6 +118,8 @@ namespace Ryasu.Game
                 return;
 
             base.Draw(gameTime);
+
+            GlobalUserInterface?.Draw(gameTime);
         }
     }
 }

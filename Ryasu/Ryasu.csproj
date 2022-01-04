@@ -15,4 +15,8 @@
     <ProjectReference Include="..\Wobble\Wobble\Wobble.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Game\Global\" />
+  </ItemGroup>
+
 </Project>
