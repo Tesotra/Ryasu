@@ -4,4 +4,14 @@
     <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Ryasu.Resources\osu!\Images\background.jpg" />
+    <None Remove="Ryasu.Resources\osu!\Music\circles.mp3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Ryasu.Resources\osu!\Images\background.jpg" />
+    <EmbeddedResource Include="Ryasu.Resources\osu!\Music\circles.mp3" />
+  </ItemGroup>
+
 </Project>

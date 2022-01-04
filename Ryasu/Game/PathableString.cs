@@ -8,7 +8,11 @@ namespace Ryasu.Game
     {
         public string Text { get; private set; }
 
-        public PathableString(string text) => Text = text;
+        public PathableString(string text)
+        {
+            var dir = System.IO.Directory.GetCurrentDirectory();
+            Text = text.Replace("[dir]", dir).Replace("[songs]",$"{dir}/Songs").Replace("[skins]",$"{dir}/Skins");
+        }
 
         public static implicit operator PathableString(string text)
         {
