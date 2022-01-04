@@ -419,7 +419,8 @@ namespace Ryasu.API.Maps.Osu
                 MapAuthor = Creator,
                 Difficulty = Version,
                 DirectoryPath = Path.GetDirectoryName(OriginalFileName),
-                MapPath = OriginalFileName
+                MapPath = OriginalFileName,
+                KeyCount = KeyCount
             };
 
             

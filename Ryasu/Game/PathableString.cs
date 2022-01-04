@@ -11,7 +11,9 @@ namespace Ryasu.Game
         public PathableString(string text)
         {
             var dir = System.IO.Directory.GetCurrentDirectory();
-            Text = text.Replace("[dir]", dir).Replace("[songs]",$"{dir}/Songs").Replace("[skins]",$"{dir}/Skins");
+            var appdata = Environment.GetEnvironmentVariable("localappdata");
+            var osu = $"{appdata}/osu!";
+            Text = text.Replace("[dir]", dir).Replace("[songs]",$"{dir}/Songs").Replace("[skins]",$"{dir}/Skins").Replace("[osu]",osu);
         }
 
         public static implicit operator PathableString(string text)

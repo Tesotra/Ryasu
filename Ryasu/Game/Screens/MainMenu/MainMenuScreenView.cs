@@ -9,6 +9,8 @@ using Ryasu.Game.Audio;
 using Wobble.Graphics.UI;
 using Microsoft.Xna.Framework.Graphics;
 using Wobble.Managers;
+using Wobble.Graphics.UI.Buttons;
+using Ryasu.Game.Screens.Selection;
 
 namespace Ryasu.Game.Screens.MainMenu
 {
@@ -19,6 +21,8 @@ namespace Ryasu.Game.Screens.MainMenu
         const int osu_circles_delay = 2400;
 
         private bool OsuStart;
+
+        private SelectionScreen SelectionScreen { get; set; }
 
         public MainMenuScreenView(Screen screen) : base(screen)
         {
@@ -35,7 +39,7 @@ namespace Ryasu.Game.Screens.MainMenu
                 dim = 100;
                 AudioEngine.Load(osuCircles);
 
-                Task.Factory.StartNew(() =>
+                Task.Run(() =>
                 {
                     Osu();
                 });
@@ -46,23 +50,36 @@ namespace Ryasu.Game.Screens.MainMenu
                 InitializeMenu();
             }
 
+            SelectionScreen = new SelectionScreen(background);
+
             Parallax = new BackgroundImage(background, dim)
             {
                 Parent = Container
             };
         }
 
-        void InitializeMenu()
+        private void InitializeMenu()
         {
+            TextButton playButton = new TextButton(Wobble.Assets.WobbleAssets.WhiteBox, "exo2-regular","SINGLEPLAYER",18);
 
+            playButton.Clicked += PlayButtonClicked;
+            playButton.Parent = Container;
+            playButton.Tint = Color.BlueViolet;
+            playButton.X = 5;
+            playButton.Y = 5;
+        }
+
+        private void PlayButtonClicked(object o, EventArgs e)
+        {
+            ScreenManager.ChangeScreen(SelectionScreen);
         }
 
         public async void Osu()
         {
             AudioEngine.Track.Play();
             await Task.Delay(osu_circles_delay);
-            OsuStart = true;
             InitializeMenu();
+            OsuStart = true;
         }
 
         public override void Destroy()

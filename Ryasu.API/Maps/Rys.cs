@@ -49,6 +49,8 @@ namespace Ryasu.API.Maps
 
         public string Difficulty { get; set; }
 
+        public int KeyCount { get; set; }
+
         public List<TimingPointInfo> TimingPoints { get; private set; }
 
         public List<SliderVelocityInfo> SliderVelocities { get; private set; }
