@@ -33,8 +33,8 @@ namespace Ryasu.Game.Screens.MainMenu
 
             if (osu)
             {
-                var osuCircles = RyasuGame.Instance.Resources.Get("Ryasu.Resources/osu!/Music/circles.mp3");
-                background = TextureManager.Load("Ryasu.Resources/osu!/Images/background.jpg");
+                var osuCircles = RyasuGame.Instance.Resources.Get("Ryasu.Resources/osu/Music/circles.mp3");
+                background = TextureManager.Load("Ryasu.Resources/osu/Images/background.jpg");
                 AudioEngine.Load(osuCircles);
                 dim = 100;
             }
