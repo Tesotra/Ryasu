@@ -7,23 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
+//Pasted from Quaver.API haha sorry
 namespace Ryasu.API.Maps.Osu
 {
     public class OsuBeatmap
     {
-        /// <summary>
-        ///     The original file name of the .osu
-        /// </summary>
         public string OriginalFileName { get; set; }
 
-        /// <summary>
-        ///     Is the peppy beatmap valid?
-        /// </summary>
         public bool IsValid { get; set; }
 
         public string PeppyFileFormat { get; set; }
 
-        // [General]
         public string AudioFilename { get; set; }
         public int AudioLeadIn { get; set; }
         public int PreviewTime { get; set; }
@@ -35,14 +29,12 @@ namespace Ryasu.API.Maps.Osu
         public int SpecialStyle { get; set; }
         public int WidescreenStoryboard { get; set; }
 
-        // [Editor]
         public string Bookmarks { get; set; }
         public float DistanceSpacing { get; set; }
         public int BeatDivisor { get; set; }
         public int GridSize { get; set; }
         public float TimelineZoom { get; set; }
 
-        // [Metadata]
         public string Title { get; set; }
         public string TitleUnicode { get; set; }
         public string Artist { get; set; }
@@ -54,7 +46,6 @@ namespace Ryasu.API.Maps.Osu
         public int BeatmapID { get; set; }
         public int BeatmapSetID { get; set; }
 
-        // [Difficulty]
         public float HPDrainRate { get; set; }
         public int KeyCount { get; set; }
         public float OverallDifficulty { get; set; }
@@ -62,22 +53,15 @@ namespace Ryasu.API.Maps.Osu
         public float SliderMultiplier { get; set; }
         public float SliderTickRate { get; set; }
 
-        // [Events]
         public string Background { get; set; }
         public List<OsuSampleInfo> SoundEffects { get; set; } = new List<OsuSampleInfo>();
 
-        // [TimingPoints]
         public List<OsuTimingPoint> TimingPoints { get; set; } = new List<OsuTimingPoint>();
 
-        // [HitObjects]
         public List<OsuHitObject> HitObjects { get; set; } = new List<OsuHitObject>();
 
-        // Stuff that's better cached in a different format right away.
         public List<string> CustomAudioSamples { get; set; } = new List<string>();
 
-        /// <summary>
-        ///     Ctor - Automatically parses a Peppy beatmap
-        /// </summary>
         public OsuBeatmap(string filePath, bool preview = false)
         {
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
@@ -88,18 +72,15 @@ namespace Ryasu.API.Maps.Osu
                 return;
             }
 
-            // Create a new beatmap object and default the validity to true.
             IsValid = true;
             OriginalFileName = filePath;
 
-            // This will hold the section of the beatmap that we are parsing.
             var section = "";
 
             try
             {
                 foreach (var raw_line in File.ReadAllLines(filePath))
                 {
-                    // Skip empty lines and comments.
                     if (string.IsNullOrWhiteSpace(raw_line)
                         || raw_line.StartsWith("//", StringComparison.Ordinal)
                         || raw_line.StartsWith(" ", StringComparison.Ordinal)
@@ -138,11 +119,9 @@ namespace Ryasu.API.Maps.Osu
                             break;
                     }
 
-                    // Parse Peppy file format
                     if (line.StartsWith("osu file format"))
                         PeppyFileFormat = line;
 
-                    // Parse [General] Section
                     if (section.Equals("[General]"))
                     {
                         if (line.Contains(":"))
@@ -191,7 +170,6 @@ namespace Ryasu.API.Maps.Osu
 
                     }
 
-                    // Parse [Editor] Data
                     if (section.Equals("[Editor]"))
                     {
                         if (line.Contains(":"))
@@ -221,7 +199,6 @@ namespace Ryasu.API.Maps.Osu
 
                     }
 
-                    // Parse [Metadata] Data
                     if (section.Equals("[Metadata]"))
                     {
                         if (line.Contains(":"))
@@ -268,7 +245,6 @@ namespace Ryasu.API.Maps.Osu
 
                     }
 
-                    // Parse [Difficulty] Data
                     if (section.Equals("[Difficulty]"))
                     {
                         if (line.Contains(":"))
@@ -304,18 +280,15 @@ namespace Ryasu.API.Maps.Osu
 
                     }
 
-                    // Parse [Events] Data
                     if (section.Equals("[Events]"))
                     {
                         var values = line.Split(',');
 
-                        // Background
                         if (line.ToLower().Contains("png") || line.ToLower().Contains("jpg") || line.ToLower().Contains("jpeg"))
                         {
                             Background = values[2].Replace("\"", "");
                         }
 
-                        // Sound effects
                         if (values[0] == "Sample" || values[0] == "5")
                         {
                             var path = values[3].Trim('"').Replace(Path.DirectorySeparatorChar, '/');
@@ -332,16 +305,12 @@ namespace Ryasu.API.Maps.Osu
 
                     try
                     {
-                        // Parse [TimingPoints] Data
                         if (section.Equals("[TimingPoints]"))
                         {
                             if (line.Contains(","))
                             {
                                 var values = line.Split(',');
 
-                                // Parse as double because there are some maps which have this value too large to fit in
-                                // a float, for example https://osu.ppy.sh/beatmapsets/681731#mania/1441497. Parsing as
-                                // double and then casting to float results in the correct outcome though.
                                 var msecPerBeat = double.Parse(values[1], CultureInfo.InvariantCulture);
 
                                 var kiaiFlags = (LegacyEffectFlags)int.Parse(values[7], CultureInfo.InvariantCulture);
@@ -366,17 +335,12 @@ namespace Ryasu.API.Maps.Osu
                     {
                         IsValid = false;
                     }
-
-                    // Parse [HitObjects] Data
                     if (section.Equals("[HitObjects]") && !preview)
                     {
                         if (line.Contains(","))
                         {
                             var values = line.Split(',');
 
-                            // We'll need to parse LNs differently than normal HitObjects,
-                            // as they have a different syntax. 128 in the object's type
-                            // signifies that it is an LN
                             var osuHitObject = new OsuHitObject
                             {
                                 X = int.Parse(values[0], CultureInfo.InvariantCulture),
@@ -420,11 +384,6 @@ namespace Ryasu.API.Maps.Osu
             }
         }
 
-        /// <summary>
-        ///     Gets the custom audio sample index by path. Inserts a new sample path if it doesn't exist yet.
-        /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
         private int CustomAudioSampleIndex(string path)
         {
             for (var i = 0; i < CustomAudioSamples.Count; i++)
@@ -436,11 +395,6 @@ namespace Ryasu.API.Maps.Osu
             return CustomAudioSamples.Count - 1;
         }
 
-        /// <summary>
-        ///     Strips comments from a line.
-        /// </summary>
-        /// <param name="line"></param>
-        /// <returns></returns>
         private static string StripComments(string line)
         {
             var index = line.IndexOf("//", StringComparison.Ordinal);
@@ -448,11 +402,7 @@ namespace Ryasu.API.Maps.Osu
                 return line.Substring(0, index);
             return line;
         }
-
-        /// <summary>
-        ///     Converts an .osu file into a Qua object
-        /// </summary>
-        /// <returns></returns>
+        
         public Rys ToRys(bool checkValidity = true, bool previewMode = false)
         {
             if (Mode != 3) return null;
@@ -570,6 +520,9 @@ namespace Ryasu.API.Maps.Osu
         Hold = 1 << 7
     }
 
+    /// <summary>
+    ///     A Timing Point Active Effects.
+    /// </summary>
     [Flags]
     internal enum LegacyEffectFlags
     {
