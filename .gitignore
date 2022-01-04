@@ -1,0 +1,9 @@
+Ryasu/bin/
+Ryasu/obj/
+Ryasu/obj/Debug/
+Ryasu.API/bin/
+Ryasu.API/obj/
+.vs
+.vs/*
+*.cache
+Wobble/
