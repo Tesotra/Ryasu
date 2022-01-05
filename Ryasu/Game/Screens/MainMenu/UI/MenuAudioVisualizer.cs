@@ -22,7 +22,7 @@ namespace Ryasu.Game.Screens.MainMenu.UI
         /// </summary>
         public int MaxBarHeight { get; }
 
-        private Sprite RyasuLogo { get; set; }
+        private RyasuLogo RyasuLogo { get; set; }
 
         /// <inheritdoc />
         ///   <summary>
@@ -31,7 +31,7 @@ namespace Ryasu.Game.Screens.MainMenu.UI
         ///   <param name="maxHeight"></param>
         ///   <param name="numBars"></param>
         ///  <param name="barWidth"></param>
-        public MenuAudioVisualizer(int width, int maxHeight, int numBars, int barWidth, int spacing = 5, Sprite logo = null)
+        public MenuAudioVisualizer(int width, int maxHeight, int numBars, int barWidth, int spacing = 5, RyasuLogo logo = null)
         {
             MaxBarHeight = maxHeight;
 
@@ -100,11 +100,7 @@ namespace Ryasu.Game.Screens.MainMenu.UI
                         bar.Height, targetHeight, 50f));
                 }
 
-                var delta = 7 * elapsed;
-
-                var lerp = MathHelper.Lerp(new Vector2(RyasuLogo.Size.X.Value, RyasuLogo.Size.Y.Value), new Vector2(512 + targetHeight, 512 + targetHeight), delta);
-
-                RyasuLogo.Size = new ScalableVector2(lerp.X,lerp.Y);
+                RyasuLogo.Visualize(targetHeight,elapsed);
             }
         }
     }

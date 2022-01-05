@@ -24,7 +24,7 @@ namespace Ryasu.Game.Screens.MainMenu
 
         private SelectionScreen SelectionScreen { get; set; }
 
-        private Sprite RyasuLogo { get; set; }
+        private RyasuLogo RyasuLogo { get; set; }
 
         private MenuAudioVisualizer Visualizer { get; set; }
 
@@ -41,7 +41,7 @@ namespace Ryasu.Game.Screens.MainMenu
 
             Texture2D ryasuLogo = TextureManager.Load("Ryasu.Resources/Images/ryasuLogo.png");
 
-            RyasuLogo = new Sprite()
+            RyasuLogo = new RyasuLogo()
             {
                 Size = new ScalableVector2(512, 512),
                 Alignment = Alignment.MidCenter,
@@ -49,7 +49,14 @@ namespace Ryasu.Game.Screens.MainMenu
                 Parent = Container
             };
 
-            
+            for (int i = 0; i < 3; i++)
+            {
+                var button = new TextButton(Wobble.Assets.WobbleAssets.WhiteBox, "gotham", RyasuLogo.GetOptionName(i), 18);
+
+                button.AddBorder(Color.AliceBlue);
+
+                RyasuLogo.AddButton(button);
+            }
 
             //Run this in a task because it can take some time.
             Task.Run(() => InitializeMenu());
@@ -84,6 +91,13 @@ namespace Ryasu.Game.Screens.MainMenu
         public override void Update(GameTime gameTime)
         {
             Container?.Update(gameTime);
+
+            //Update Loop
+            if (AudioEngine.Track == null || AudioEngine.Track.IsDisposed)
+                return;
+
+            if (!AudioEngine.Track.IsPlaying)
+                AudioEngine.Track.Play();
         }
     }
 }
