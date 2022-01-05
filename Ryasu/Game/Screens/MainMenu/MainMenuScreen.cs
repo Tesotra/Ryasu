@@ -13,5 +13,10 @@ namespace Ryasu.Game.Screens.MainMenu
         {
             View = new MainMenuScreenView(this);
         }
+
+        public void PlayAudio()
+        {
+            Audio.AudioEngine.Track.Play();
+        }
     }
 }

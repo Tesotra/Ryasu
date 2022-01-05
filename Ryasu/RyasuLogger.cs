@@ -17,5 +17,20 @@ namespace Ryasu
             Console.WriteLine($"[RYASU {DateTime.Now.ToShortTimeString().ToUpper()}] {log}");
             Console.ForegroundColor = ConsoleColor.Gray;
         }
+
+        public static void DebugLog(string log)
+        {
+            DebugLog(log, ConsoleColor.Gray);
+        }
+
+        public static void DebugLog(string log, ConsoleColor color)
+        {
+            if (!Game.RyasuGame.DebugLogging)
+                return;
+
+            Console.ForegroundColor = color;
+            Console.WriteLine($"[DEBUG {DateTime.Now.ToShortTimeString().ToUpper()}] {log}");
+            Console.ForegroundColor = ConsoleColor.Gray;
+        }
     }
 }

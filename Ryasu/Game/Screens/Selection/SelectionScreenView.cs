@@ -22,9 +22,13 @@ namespace Ryasu.Game.Screens.Selection
     public class SelectionScreenView : ScreenView
     {
         public Dictionary<int, BeatmapButton> Beatmaps = new Dictionary<int, BeatmapButton>();
+
         public Rys Old { get; private set; }
+
         public Rys New { get; private set; }
+
         private ScrollContainer Scroll { get; set; }
+
         private BackgroundImage Parallax { get; set; }
 
         public SelectionScreenView(Screen screen, Texture2D bg) : base(screen)
@@ -63,11 +67,12 @@ namespace Ryasu.Game.Screens.Selection
                 var rys = new OsuBeatmap(f,true).ToRys(false,true);
 
                 if (rys == null || !rys.IsValid())
+                {
+                    RyasuLogger.DebugLog($"Found Invalid Beatmap. {Path.GetFileName(f)}");
                     continue;
+                }
 
-                var button = new TextButton(WobbleAssets.WhiteBox,"exo2-regular",$"{rys.MapName}\n{rys.Artist} // {rys.MapAuthor}\n{rys.Difficulty} ({rys.KeyCount}k)",16, (o,e) => {
-                    LoadMap(rys);
-                });
+                var button = new BeatmapButton(rys);
 
                 button.Size = new ScalableVector2(900,90);
 
@@ -77,6 +82,8 @@ namespace Ryasu.Game.Screens.Selection
                 button.AddBorder(Color.Black, 1.4f);
 
                 button.X = 20;
+                button.DefX = 20;
+                button.Parallax = true;
 
                 y = (95 * i) + 95;
 
@@ -87,8 +94,6 @@ namespace Ryasu.Game.Screens.Selection
                 Scroll.AddContainedDrawable(button);
 
                 Scroll.ContentContainer.Size = new ScalableVector2(650, y);
-
-                Beatmaps.Add(i, new BeatmapButton(button, rys));
 
                 i++;
             }

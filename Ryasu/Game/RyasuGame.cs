@@ -14,6 +14,7 @@ using Wobble.Screens;
 using Ryasu.Game.Screens.MainMenu;
 using Wobble.IO;
 using Wobble.Graphics.UI.Debugging;
+using Ryasu.Game.Screens.Load;
 
 namespace Ryasu.Game
 {
@@ -21,6 +22,7 @@ namespace Ryasu.Game
     {
         public static RyasuGame Instance { get; private set; }
 
+        public static bool DebugLogging { get; private set; }
         public static List<string> LaunchArguments { get; set; }
 
         protected override bool IsReadyToUpdate { get; set; }
@@ -34,6 +36,8 @@ namespace Ryasu.Game
         protected override void Initialize()
         {
             WindowManager.ChangeScreenResolution(new Point(1280, 720));
+
+            DebugLogging = LaunchArguments.Contains("--log");
 
             Resources.AddStore(new DllResourceStore("Ryasu.Resources.dll"));
 
@@ -80,7 +84,7 @@ namespace Ryasu.Game
 
             IsReadyToUpdate = true;
 
-            ScreenManager.ChangeScreen(new MainMenuScreen());
+            ScreenManager.ChangeScreen(new LoadScreen());
         }
 
         /// <inheritdoc />
