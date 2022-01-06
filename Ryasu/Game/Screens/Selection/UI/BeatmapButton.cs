@@ -21,21 +21,5 @@ namespace Ryasu.Game.Screens.Selection.UI
             Map = rys;
             DrawIfOffScreen = false;
         }
-
-        public override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
-            /*
-            if (!Parallax) return;
-            if (!Visible) return;
-
-            var mp = Mouse.GetState();
-
-            //800 is the scrollbar offset
-            var distance = MathR.DistanceFrom(new Vector2(mp.X, mp.Y),new Vector2(800+DefX,Y));
-
-            X = DefX + (float)distance;
-            */
-        }
     }
 }

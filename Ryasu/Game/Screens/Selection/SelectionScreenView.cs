@@ -16,6 +16,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Ryasu.API.Maps;
 using Ryasu.Game.Audio;
 using Ryasu.Game.Managers;
+using Wobble.Input;
 
 namespace Ryasu.Game.Screens.Selection
 {
@@ -89,6 +90,8 @@ namespace Ryasu.Game.Screens.Selection
 
                 button.Y = y;
 
+                button.Clicked += (o, e) => LoadMap(rys);
+
                 button.Parent = Container;
 
                 Scroll.AddContainedDrawable(button);
@@ -152,6 +155,11 @@ namespace Ryasu.Game.Screens.Selection
         public override void Update(GameTime gameTime)
         {
             Container?.Update(gameTime);
+
+            if (KeyboardManager.IsUniqueKeyPress(Microsoft.Xna.Framework.Input.Keys.Escape))
+            {
+                ScreenManager.ChangeScreen(MainMenu.MainMenuScreen.Instance);
+            }
         }
     }
 }

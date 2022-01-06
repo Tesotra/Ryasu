@@ -36,8 +36,11 @@ namespace Ryasu.Game.Screens.MainMenu
 
         private Sprite BackgroundSprite { get; set; }
 
+        public static MainMenuScreenView Instance { get; private set; }
+
         public MainMenuScreenView(Screen screen) : base(screen)
         {
+            Instance = this;
             Texture2D background = TextureManager.Load("Ryasu.Resources/osu/Images/background.jpg");
 
             SelectionScreen = new SelectionScreen(background);

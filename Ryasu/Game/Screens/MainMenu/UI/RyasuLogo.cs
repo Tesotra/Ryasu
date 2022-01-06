@@ -170,7 +170,14 @@ namespace Ryasu.Game.Screens.MainMenu.UI
         void OnClicked()
         {
             if (Quitting) return;
-            OpenMenu();
+            if (ButtonClicked)
+            {
+                MainMenuScreenView.Instance.ProcessButtonEvent(0);
+            }
+            else
+            {
+                OpenMenu();
+            }
         }
 
         public override void Draw(GameTime gameTime)
