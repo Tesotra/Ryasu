@@ -10,6 +10,7 @@ using Wobble.Graphics.Sprites;
 using Wobble.Managers;
 using Wobble.Graphics.UI;
 using Wobble.Graphics;
+using Wobble.Audio.Samples;
 
 namespace Ryasu.Game.Screens.Load
 {
@@ -61,7 +62,11 @@ namespace Ryasu.Game.Screens.Load
             byte[] osuCircles = RyasuGame.Instance.Resources.Get("Ryasu.Resources/osu/Music/welcomeToOsu.mp3");
             AudioEngine.Load(osuCircles);
 
-            await Task.Delay(2400);
+            AudioSample welcomeToOsu = AudioEngine.LoadSample("Ryasu.Resources/osu/Samples/Intro/welcome.mp3");
+            var chan = welcomeToOsu.CreateChannel();
+            chan.Play();
+
+            await Task.Delay(2050);
             MenuScreen.PlayAudio();
             ScreenManager.ChangeScreen(MenuScreen);
         }

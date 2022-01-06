@@ -15,6 +15,7 @@ using Ryasu.Game.Screens.MainMenu;
 using Wobble.IO;
 using Wobble.Graphics.UI.Debugging;
 using Ryasu.Game.Screens.Load;
+using Ryasu.Game.Audio;
 
 namespace Ryasu.Game
 {
@@ -81,6 +82,10 @@ namespace Ryasu.Game
             };
 
             RyasuContent = Content;
+
+            AudioEngine.LoadSample("Ryasu.Resources/osu/Samples/Intro/welcome.mp3",true);
+            AudioEngine.LoadSample("Ryasu.Resources/osu/Samples/Intro/seeYouNextTime.mp3",true);
+            AudioEngine.LoadSample("Ryasu.Resources/osu/Samples/Menu/logo-select.wav",true);
 
             IsReadyToUpdate = true;
 

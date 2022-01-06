@@ -6,16 +6,22 @@
 
   <ItemGroup>
     <None Remove="Ryasu.Resources\Images\ryasuLogo.png" />
+    <None Remove="Ryasu.Resources\Images\ryasuLogoDark.png" />
     <None Remove="Ryasu.Resources\osu\Images\background.jpg" />
     <None Remove="Ryasu.Resources\osu\Music\circles.mp3" />
     <None Remove="Ryasu.Resources\osu\Music\welcomeToOsu.mp3" />
+    <None Remove="Ryasu.Resources\osu\Samples\Intro\seeYouNextTime.mp3" />
+    <None Remove="Ryasu.Resources\osu\Samples\Intro\welcome.mp3" />
     <None Remove="Ryasu.Resources\osu\Samples\Menu\logo-select.wav" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Ryasu.Resources\Images\ryasuLogo.png" />
+    <EmbeddedResource Include="Ryasu.Resources\Images\ryasuLogoDark.png" />
     <EmbeddedResource Include="Ryasu.Resources\osu\Images\background.jpg" />
     <EmbeddedResource Include="Ryasu.Resources\osu\Music\welcomeToOsu.mp3" />
+    <EmbeddedResource Include="Ryasu.Resources\osu\Samples\Intro\seeYouNextTime.mp3" />
+    <EmbeddedResource Include="Ryasu.Resources\osu\Samples\Intro\welcome.mp3" />
     <EmbeddedResource Include="Ryasu.Resources\osu\Samples\Menu\logo-select.wav" />
   </ItemGroup>
 

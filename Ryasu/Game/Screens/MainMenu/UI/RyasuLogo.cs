@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Ryasu.Game.Audio;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +10,7 @@ using Wobble.Graphics;
 using Wobble.Graphics.Animations;
 using Wobble.Graphics.Sprites;
 using Wobble.Graphics.UI.Buttons;
+using Wobble.Managers;
 
 namespace Ryasu.Game.Screens.MainMenu.UI
 {
@@ -20,6 +22,8 @@ namespace Ryasu.Game.Screens.MainMenu.UI
 
         const float PressedX = -400;
 
+        private bool Quitting { get; set; }
+
         private Drawable OptionsContainer { get; set; }
 
         private TimeSpan TimeElaspedSinceLastClick { get; set; } = TimeSpan.Zero;
@@ -28,8 +32,7 @@ namespace Ryasu.Game.Screens.MainMenu.UI
 
         public RyasuLogo()
         {
-            byte[] LogoClicked = RyasuGame.Instance.Resources.Get("Ryasu.Resources/osu/Samples/Menu/logo-select.wav");
-            ClickedSample = new AudioSample(LogoClicked);
+            ClickedSample = AudioEngine.LoadSample("Ryasu.Resources/osu/Samples/Menu/logo-select.wav");
 
             Clicked += (o, e) => OnClicked();
 
@@ -48,8 +51,37 @@ namespace Ryasu.Game.Screens.MainMenu.UI
             Options.Add(button);
         }
 
+        public void Quit()
+        {
+            Quitting = true;
+            CloseMenu();
+            ChangeLogo();
+        }
+
+        private void ChangeLogo()
+        {
+            Texture2D logoDark = TextureManager.Load("Ryasu.Resources/Images/ryasuLogoDark.png");
+
+            Image = logoDark;
+        }
+
         private void OpenMenu()
         {
+            if (!ButtonClicked)
+                ClickedSample.CreateChannel().Play();
+
+            ButtonClicked = true;
+
+            TimeElaspedSinceLastClick = TimeSpan.Zero;
+
+            lock (Animations)
+            {
+                Animations.Clear();
+                Animations.Add(new Animation(AnimationProperty.X, Easing.OutCirc, X, PressedX, 90f));
+                Animations.Add(new Animation(AnimationProperty.Width, Easing.OutCirc, Width, 256, 70f));
+                Animations.Add(new Animation(AnimationProperty.Height, Easing.OutCirc, Height, 256, 70f));
+            }
+
             for (int i = 0; i < Options.Count; i++)
             {
                 var option = Options[i];
@@ -57,7 +89,7 @@ namespace Ryasu.Game.Screens.MainMenu.UI
                 lock (option.Animations)
                 {
                     option.Animations.Clear();
-                    option.Animations.Add(new Animation(AnimationProperty.X, Easing.OutCirc, option.X, (160 * i) + 205, 300f));
+                    option.Animations.Add(new Animation(AnimationProperty.X, Easing.OutCirc, option.X, (160 * i) + 205, 250f));
                     option.Animations.Add(new Animation(AnimationProperty.Alpha, Easing.Linear, option.Alpha, 1, 160f));
                 }
             }
@@ -65,6 +97,18 @@ namespace Ryasu.Game.Screens.MainMenu.UI
 
         private void CloseMenu()
         {
+            ButtonClicked = false;
+
+            lock (Animations)
+            {
+                Animations.Clear();
+                Animations.Add(new Animation(AnimationProperty.X, Easing.OutCirc, X, 0, 550f));
+                Animations.Add(new Animation(AnimationProperty.Width, Easing.OutCirc, Width, 512, 500f));
+                Animations.Add(new Animation(AnimationProperty.Height, Easing.OutCirc, Height, 512, 500f));
+            }
+
+            TimeElaspedSinceLastClick = TimeSpan.Zero;
+
             for (int i = 0; i < Options.Count; i++)
             {
                 var option = Options[i];
@@ -81,7 +125,7 @@ namespace Ryasu.Game.Screens.MainMenu.UI
 
         public static string GetOptionName(int id)
         {
-            switch (id+1)
+            switch (id + 1)
             {
                 case 1:
                     return "Singleplayer";
@@ -112,44 +156,20 @@ namespace Ryasu.Game.Screens.MainMenu.UI
             OptionsContainer.X = X;
             OptionsContainer.Y = Y;
 
-            if(ButtonClicked)
+            if (Quitting) return;
+
+            if (ButtonClicked)
                 TimeElaspedSinceLastClick += gameTime.ElapsedGameTime;
 
             if(TimeElaspedSinceLastClick >= TimeSpan.FromSeconds(10f) && ButtonClicked)
             {
-                ButtonClicked = false;
-
-                lock (Animations)
-                {
-                    Animations.Clear();
-                    Animations.Add(new Animation(AnimationProperty.X, Easing.OutCirc, X, 0, 550f));
-                    Animations.Add(new Animation(AnimationProperty.Width, Easing.OutCirc, Width, 512, 500f));
-                    Animations.Add(new Animation(AnimationProperty.Height, Easing.OutCirc, Height, 512, 500f));
-                }
-
-                TimeElaspedSinceLastClick = TimeSpan.Zero;
-
                 CloseMenu();
             }
         }
 
         void OnClicked()
         {
-            if(!ButtonClicked)
-                ClickedSample.CreateChannel().Play();
-
-            ButtonClicked = true;
-
-            TimeElaspedSinceLastClick = TimeSpan.Zero;
-
-            lock (Animations)
-            {
-                Animations.Clear();
-                Animations.Add(new Animation(AnimationProperty.X,Easing.OutCirc, X, PressedX, 90f));
-                Animations.Add(new Animation(AnimationProperty.Width, Easing.OutCirc, Width, 256, 70f));
-                Animations.Add(new Animation(AnimationProperty.Height, Easing.OutCirc, Height, 256, 70f));
-            }
-
+            if (Quitting) return;
             OpenMenu();
         }
 
