@@ -16,6 +16,7 @@ using Wobble.IO;
 using Wobble.Graphics.UI.Debugging;
 using Ryasu.Game.Screens.Load;
 using Ryasu.Game.Audio;
+using Ryasu.Game.Skinning;
 
 namespace Ryasu.Game
 {
@@ -24,6 +25,7 @@ namespace Ryasu.Game
         public static RyasuGame Instance { get; private set; }
 
         public static bool DebugLogging { get; private set; }
+
         public static List<string> LaunchArguments { get; set; }
 
         protected override bool IsReadyToUpdate { get; set; }
@@ -86,6 +88,9 @@ namespace Ryasu.Game
             AudioEngine.LoadSample("Ryasu.Resources/osu/Samples/Intro/welcome.mp3",true);
             AudioEngine.LoadSample("Ryasu.Resources/osu/Samples/Intro/seeYouNextTime.mp3",true);
             AudioEngine.LoadSample("Ryasu.Resources/osu/Samples/Menu/logo-select.wav",true);
+
+            //Load Default Skin
+            SkinManager.LoadSkin(":;'+-_=}{]");
 
             IsReadyToUpdate = true;
 

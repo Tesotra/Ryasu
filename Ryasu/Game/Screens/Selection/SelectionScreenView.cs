@@ -79,8 +79,8 @@ namespace Ryasu.Game.Screens.Selection
 
                 button.Text.Alignment = Alignment.MidLeft;
 
-                button.Tint = new Color(61, 37, 133);
-                button.AddBorder(Color.Black, 1.4f);
+                button.Tint = new Color(228, 119, 158);
+                button.AddBorder(Color.Black, 0.8f);
 
                 button.X = 20;
                 button.DefX = 20;
@@ -90,7 +90,7 @@ namespace Ryasu.Game.Screens.Selection
 
                 button.Y = y;
 
-                button.Clicked += (o, e) => LoadMap(rys);
+                button.Clicked += (o, e) => LoadMap(rys,button);
 
                 button.Parent = Container;
 
@@ -102,8 +102,9 @@ namespace Ryasu.Game.Screens.Selection
             }
         }
 
-        public void LoadMap(Rys map)
+        public void LoadMap(Rys map,BeatmapButton sender)
         {
+            BeatmapButton.SelectedButton = sender;
             if(New != map)
             {
                 Old = New;

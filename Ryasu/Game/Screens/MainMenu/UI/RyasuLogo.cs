@@ -78,8 +78,8 @@ namespace Ryasu.Game.Screens.MainMenu.UI
             {
                 Animations.Clear();
                 Animations.Add(new Animation(AnimationProperty.X, Easing.OutCirc, X, PressedX, 90f));
-                Animations.Add(new Animation(AnimationProperty.Width, Easing.OutCirc, Width, 256, 70f));
-                Animations.Add(new Animation(AnimationProperty.Height, Easing.OutCirc, Height, 256, 70f));
+                Animations.Add(new Animation(AnimationProperty.Width, Easing.OutCirc, Width, 256, 90f));
+                Animations.Add(new Animation(AnimationProperty.Height, Easing.OutCirc, Height, 256, 90f));
             }
 
             for (int i = 0; i < Options.Count; i++)
@@ -102,7 +102,7 @@ namespace Ryasu.Game.Screens.MainMenu.UI
             lock (Animations)
             {
                 Animations.Clear();
-                Animations.Add(new Animation(AnimationProperty.X, Easing.OutCirc, X, 0, 550f));
+                Animations.Add(new Animation(AnimationProperty.X, Easing.OutCirc, X, 0, 500f));
                 Animations.Add(new Animation(AnimationProperty.Width, Easing.OutCirc, Width, 512, 500f));
                 Animations.Add(new Animation(AnimationProperty.Height, Easing.OutCirc, Height, 512, 500f));
             }
@@ -140,7 +140,7 @@ namespace Ryasu.Game.Screens.MainMenu.UI
 
         public void Visualize(float data, float elapsed)
         {
-            var delta = 9 * elapsed;
+            var delta = 6 * elapsed;
 
             float Default = ButtonClicked ? 256 : 512;
 

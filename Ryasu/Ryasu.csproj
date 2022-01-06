@@ -21,4 +21,10 @@
     <Folder Include="Game\Global\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="BetterINI">
+      <HintPath>..\..\..\..\Downloads\BetterINI-master\BetterINI-master\src\BetterINI\bin\Release\netstandard2.0\BetterINI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
